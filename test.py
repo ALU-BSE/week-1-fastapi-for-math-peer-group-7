@@ -67,6 +67,11 @@ def matrix_multiplication(input_data: MatrixInput, method: str = 'numpy'):
     return {"resultt": sigmoid_result.tolist()}
 
 
+
+## EXAMPLE USAGES
+##Create a 5 by 5 matrix, call the functions(matrix_multiplication)
+
+
 if __name__ == "__main__":
     
     uvicorn.run(app)
