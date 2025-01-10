@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 import uvicorn 
 import numpy as np 
+from pydantic import BaseModel
+
 
 app = FastAPI()
 
