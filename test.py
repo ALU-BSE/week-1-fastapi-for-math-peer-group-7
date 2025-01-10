@@ -52,11 +52,7 @@ def matrix_multiplication(input_data: MatrixInput, method: str = 'numpy'):
 
     else:
 
-        result = [[0 for _ in range(5)] for _ in range(5)]
-        for i in range(5):
-            for j in range(5):  
-                for k in range(5):  
-                    result[i][j] += M[i][k] * X[k][j]
+        
                     
         # Add bias B
         for i in range(5):
