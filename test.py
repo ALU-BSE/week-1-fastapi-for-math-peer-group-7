@@ -17,6 +17,17 @@ def sigmoid(x):
     """
     
     return 1 / (1 + 2.71828 ** (-x) )
+
+
+class MatrixInput(BaseModel):
+    """
+    this model validates the input going into the function
+    making sure they're matrix of list[list] with floats
+    """
+    matrix : list[list[float]]
+
+
+
 # use the post decorator directly below this
 '''
     Initialize M and B as np arrays
