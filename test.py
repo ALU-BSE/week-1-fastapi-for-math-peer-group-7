@@ -1,43 +1,3 @@
-import numpy as np
-
-# Step 1: Initialize M and B matrices
-M = np.array([[1, 2, 3, 4, 5],
-              [6, 7, 8, 9, 10],
-              [11, 12, 13, 14, 15],
-              [16, 17, 18, 19, 20],
-              [21, 22, 23, 24, 25]])
-
-B = np.array([[1, 1, 1, 1, 1],
-              [1, 1, 1, 1, 1],
-              [1, 1, 1, 1, 1],
-              [1, 1, 1, 1, 1],
-              [1, 1, 1, 1, 1]])
-
-# Step 2: Define the sigmoid function
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-# Step 3: Matrix multiplication with NumPy
-def matrix_multiplication_numpy(X):
-    return np.dot(M, X) + B
-
-def matrix_multiplication_manual(X):
-    result = [[0 for _ in range(5)] for _ in range(5)]
-    for i in range(5):  # Loop through rows of M
-        for j in range(5):  # Loop through columns of X
-            for k in range(5):  # Element-wise multiplication and sum
-                result[i][j] += M[i][k] * X[k][j]
-    # Add bias B
-    for i in range(5):
-        for j in range(5):
-            result[i][j] += B[i][j]
-    return result
-
-
-
-
-
-
 from fastapi import FastAPI
 import uvicorn 
 import numpy as np 
@@ -69,18 +29,15 @@ def sigmoid(x):
 
 
 # use the post decorator directly below this
-'''
-    Initialize M and B as np arrays
-'''
-def f(x):
-    pass
+
  
 #Implement the formula MX + B
 #Have two function one using numpy and another not using numpy
-
+@app.post("/calculate")
 def matrix_multiplication_numpy(X):
     return np.dot(M, X) + B
-
+  
+@app.post("/calculate")
 def matrix_multiplication_manual(X):
     result = [[0 for _ in range(5)] for _ in range(5)]
     for i in range(5):  # Loop through rows of M
