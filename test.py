@@ -9,7 +9,7 @@ app = FastAPI()
 # sigmoid function
 def sigmoid(x):
     """
-    This sigmoid funnctions returns a 
+    This sigmoid funnctions returns an 
     output between 0 and 1.. 
 
     the formula is 1/ (1 + e(-x))
