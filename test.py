@@ -19,60 +19,53 @@ def sigmoid(x):
     return 1 / (1 + 2.71828 ** (-x) )
 
 
-# class MatrixInput(BaseModel):
-#     """
-#     this model validates the input going into the function
-#     making sure they're matrix of list[list] with floats
-#     """
-#     matrix : list[list[float]]
+class MatrixInput(BaseModel):
+    """
+    this model validates the input going into the function
+    making sure they're matrix of list[list] with floats
+    """
+    matrix : list[list[float]]
 
-
+#initialize M and B
+M = np.ones((5, 5))
+B = np.zeros((5, 5))
 
 # use the post decorator directly below this
-
- 
 #Implement the formula MX + B
 #Have two function one using numpy and another not using numpy
 @app.post("/calculate")
-def matrix_multiplication_numpy(X):
-    return np.dot(M, X) + B
-  
-@app.post("/calculate")
-def matrix_multiplication_manual(X):
-    result = [[0 for _ in range(5)] for _ in range(5)]
-    for i in range(5):  # Loop through rows of M
-        for j in range(5):  # Loop through columns of X
-            for k in range(5):  # Element-wise multiplication and sum
-                result[i][j] += M[i][k] * X[k][j]
-    # Add bias B
-    for i in range(5):
-        for j in range(5):
-            result[i][j] += B[i][j]
-    return result
-#Return 
+def matrix_multiplication(input_data: MatrixInput, method: str = 'numpy'):
+    '''
+        We will perform the multiplication of MX + B using the method provided
+        
+        - if method == "numpy" we calculate with numpy, else we use manual
+        - Default method is "Numpy"
+    '''
 
-#initialize x as a 5 * 5 matrix
-X = np.array([[1, 2, 3, 4, 5],
-            [6, 7, 8, 9, 10],
-            [11, 12, 13, 14, 15],
-            [16, 17, 18, 19, 20],
-            [21, 22, 23, 24, 25]])
+    X = np.array(input_data.matrix)
 
-#Make a call to the function
-# Perform (M * X) + B using NumPy
-result = matrix_multiplication_numpy(X)
-print("\nMatrix Multiplication Result (M * X + B):")
-print(result)
+    
+    if method == 'numpy':
+        result = np.dot(M, X) + B
 
-# Perform (M * X) + B manually
-manual_result = matrix_multiplication_manual(X)
-print("\nManual Matrix Multiplication Result (M * X + B):")
-print(manual_result)
+    else:
 
-#Recreate the function with the sigmoid Function
-sigmoid_result = sigmoid(result)
-print("\nSigmoid Result:")
-print(sigmoid_result)
+        result = [[0 for _ in range(5)] for _ in range(5)]
+        for i in range(5):
+            for j in range(5):  
+                for k in range(5):  
+                    result[i][j] += M[i][k] * X[k][j]
+                    
+        # Add bias B
+        for i in range(5):
+            for j in range(5):
+                result[i][j] += B[i][j]
+
+    sigmoid_result = sigmoid(result)
+
+    # Return the result as a JSON response
+    return {"resultt": sigmoid_result.tolist()}
+
 
 if __name__ == "__main__":
     
