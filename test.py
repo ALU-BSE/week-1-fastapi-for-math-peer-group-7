@@ -19,13 +19,6 @@ def sigmoid(x):
     return 1 / (1 + 2.71828 ** (-x) )
 
 
-class MatrixInput(BaseModel):
-    """
-    this model validates the input going into the function
-    making sure they're matrix of list[list] with floats
-    """
-    matrix : list[list[float]]
-
 #initialize M and B
 M = np.ones((5, 5))
 B = np.zeros((5, 5))
@@ -60,12 +53,6 @@ def matrix_multiplication(input_data: MatrixInput, method: str = 'numpy'):
         for i in range(5):
             for j in range(5):
                 result[i][j] += B[i][j]
-
-    sigmoid_result = sigmoid(result)
-
-    # Return the result as a JSON response
-    return {"resultt": sigmoid_result.tolist()}
-
 
 
 ## EXAMPLE USAGES
