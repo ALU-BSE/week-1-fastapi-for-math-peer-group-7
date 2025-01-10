@@ -4,6 +4,19 @@ import numpy as np
 
 app = FastAPI()
 
+
+
+# sigmoid function
+def sigmoid(x):
+    """
+    This sigmoid funnctions returns an 
+    output between 0 and 1.. 
+
+    the formula is 1/ (1 + e(-x))
+    but e is equivalent to 2.71828
+    """
+    
+    return 1 / (1 + 2.71828 ** (-x) )
 # use the post decorator directly below this
 '''
     Initialize M and B as np arrays
